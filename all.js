@@ -33,6 +33,8 @@ const day1a = function () {
 ///// day 1: part 1 results
 // day1a(); // 1529
 
+//-------------
+
 const day1b = function () {
   let depthArray = readInputAsArray("./day1/input_day1.txt");
   depthArray = depthArray.map((el) => Number(el));
@@ -108,3 +110,52 @@ const day2a = function (instructions) {
 // const lastPosition = day2a(instructions); // { h: 1823, d: 1018 }
 // const result = lastPosition.h * lastPosition.d;
 // console.log(result); // 1855814
+
+//-------------
+
+const modifyPositionAndAim = function (positionAim, instruction) {
+  let { h, d, aim } = positionAim;
+  let command = instruction.split(" ");
+  let direction = command[0];
+  let delta = Number(command[1]);
+
+  switch (direction) {
+    case "forward":
+      h = h + delta;
+      d = d + aim * delta;
+      break;
+    case "down":
+      aim = aim + delta;
+      break;
+    case "up":
+      aim = aim - delta;
+      break;
+    default:
+      console.log("bug");
+  }
+
+  positionAim.h = h;
+  positionAim.d = d;
+  positionAim.aim = aim;
+
+  return positionAim;
+};
+
+const day2b = function (instructions) {
+  let horiz = 0;
+  let down = 0;
+  let aim = 0;
+  let positionAim = { h: horiz, d: down, aim };
+
+  for (instruction of instructions) {
+    console.log(positionAim, instruction);
+    modifyPositionAndAim(positionAim, instruction);
+  }
+  console.log(positionAim);
+  return positionAim;
+};
+
+///// day 2: part 2 results
+const lastPosition2 = day2b(instructions); // { h: 1823, d: 1012318, aim: 1018 }
+const result2 = lastPosition2.h * lastPosition2.d;
+console.log(result2); // 1845455714
