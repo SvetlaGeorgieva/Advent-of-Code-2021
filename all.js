@@ -1,4 +1,3 @@
-const { dir } = require("console");
 const fs = require("fs");
 
 const readInputAll = function (file) {
@@ -11,11 +10,12 @@ const readInputAsArray = function (file) {
   let inputArray = input.split("\r\n");
   return inputArray;
 };
+
 /////////////////////////
 // DAY 1
 
 const day1a = function () {
-  let depthArray = readInputAsArray("./input/day1.txt");
+  let depthArray = readInputAsArray("./day1/input_day1.txt");
   //   let depthArray = ["1", "0", "5", "5", "10"];
   depthArray = depthArray.map((el) => Number(el));
   let countIncreasing = 0;
@@ -34,14 +34,11 @@ const day1a = function () {
 // day1a(); // 1529
 
 const day1b = function () {
-  // let depthArray = readInputAsArray("./input/day1.txt");
-  let depthArray = readInputAsArray(`forward 8
-  forward 3
-  down 8`);
-  // depthArray = depthArray.map((el) => Number(el));
+  let depthArray = readInputAsArray("./day1/input_day1.txt");
+  depthArray = depthArray.map((el) => Number(el));
   let countIncreasing = 0;
 
-  let a, b, c;
+  let a, b;
   for (let i = 0; i < depthArray.length - 3; i++) {
     a = depthArray[i] + depthArray[i + 1] + depthArray[i + 2];
     b = depthArray[i + 1] + depthArray[i + 2] + depthArray[i + 3];
@@ -60,10 +57,10 @@ const day1b = function () {
 /////////////////////////
 // DAY 2
 
-const input = readInputAll("./input/day2.txt");
-// const input = readInputAll("./input/test.txt");
+const input = readInputAll("./day2/input_day2.txt");
+// const input = readInputAll("./test.txt");
 const instructions = input.split("\n");
-console.log(instructions);
+// console.log(instructions);
 
 const modifyPosition = function (position, instruction) {
   let { h, d } = position;
