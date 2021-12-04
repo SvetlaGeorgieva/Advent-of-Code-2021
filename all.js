@@ -5,9 +5,9 @@ const readInputAll = function (file) {
   return input;
 };
 
-const readInputAsArray = function (file) {
+const readInputAsArray = function (file, separator = "\r\n") {
   let input = fs.readFileSync(file).toString("utf-8");
-  let inputArray = input.split("\r\n");
+  let inputArray = input.split(separator);
   return inputArray;
 };
 
@@ -59,9 +59,9 @@ const day1b = function () {
 /////////////////////////
 // DAY 2
 
-const input = readInputAll("./day2/input_day2.txt");
+const input2 = readInputAll("./day2/input_day2.txt");
 // const input = readInputAll("./test.txt");
-const instructions = input.split("\n");
+const instructions = input2.split("\n");
 // console.log(instructions);
 
 const modifyPosition = function (position, instruction) {
@@ -156,6 +156,35 @@ const day2b = function (instructions) {
 };
 
 ///// day 2: part 2 results
-const lastPosition2 = day2b(instructions); // { h: 1823, d: 1012318, aim: 1018 }
-const result2 = lastPosition2.h * lastPosition2.d;
-console.log(result2); // 1845455714
+// const lastPosition2 = day2b(instructions); // { h: 1823, d: 1012318, aim: 1018 }
+// const result2 = lastPosition2.h * lastPosition2.d;
+// console.log(result2); // 1845455714
+
+/////////////////////////
+// DAY 3
+
+const input3 = readInputAsArray("./day3/input_day3.txt", "\n");
+// const input3 = readInputAsArray("./test.txt", "\n");
+
+const day3a = function (report) {
+  const codeLength = input3[0].length;
+  let summed = new Array(codeLength).fill(0);
+
+  for (code of input3) {
+    for (let i = 0; i < code.length; i++) {
+      if (code[i] === "1") summed[i]++;
+    }
+  }
+
+  const gammaRate = summed.map((n) => (n > input3.length / 2 ? 1 : 0)).join("");
+  const gammaRateDecimal = parseInt(gammaRate, 2);
+  const epsilonRate = summed
+    .map((n) => (n < input3.length / 2 ? 1 : 0))
+    .join("");
+  const epsilonRateDecimal = parseInt(epsilonRate, 2);
+  const powerConsumption = gammaRateDecimal * epsilonRateDecimal;
+  return powerConsumption;
+};
+
+///// day 2: part 1 results
+console.log(day3a(input3)); // 1082324
